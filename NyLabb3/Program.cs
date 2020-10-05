@@ -24,9 +24,8 @@ namespace Labb3
         static void FindPNGChunks(byte[] data, int fileSize)
         {
             int chunkCounter = 1;
-            int crcCheckBytes = 4;
 
-            for (int i = 8; i < fileSize; i += 8)
+            for (int i = 8; i < fileSize; i += 12)
             {
                 string chunkHexValues = String.Format($"{data[i]:X02}{data[i + 1]:X02}{data[i + 2]:X02}{data[i + 3]:X02}");
                 int chunkDecimalValue = Convert.ToInt32(chunkHexValues.ToString(), 16);
@@ -34,8 +33,9 @@ namespace Labb3
 
                 Console.WriteLine("----------------");
                 Console.WriteLine("Chunk #" + chunkCounter + "\nChunk type: " + chunkType + "\nChunk Length: " + chunkDecimalValue);
+
                 chunkCounter++;
-                i += chunkDecimalValue + crcCheckBytes;
+                i += chunkDecimalValue;
             }
         }
         static int ReturnBMPWidth(byte[] data)
