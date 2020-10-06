@@ -82,6 +82,7 @@ namespace Labb3
         }
         static void ReadImageData(out byte []data, out int fileSize)
         {
+            Console.Write("Ange sökväg: ");
             var fs = new FileStream(Console.ReadLine(), FileMode.Open);
             fileSize = (int)fs.Length;
             data = new byte[fileSize];
